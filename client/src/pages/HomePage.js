@@ -7,7 +7,7 @@ const HomePage = () => {
 
   useEffect(() => {
     // Fetch posts from the backend API
-    axios.get('/posts') // Backend
+    axios.get('http://localhost:4000/posts') // Adjust this route to match your backend
       .then((response) => {
         setPosts(response.data);
       })
@@ -19,7 +19,7 @@ const HomePage = () => {
   return (
     <Container className="mt-5">
       <h1>Blog Posts</h1>
-      <Button href="/create" variant="success" className="mb-3">Create New Post</Button>
+      <Button href="/create"  variant="success" className="mb-3">Create New Post</Button>
       <Row>
         {posts.map((post) => (
           <Col key={post._id} md={4} className="mb-4">

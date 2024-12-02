@@ -8,7 +8,7 @@ const CreatePost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/posts', { title, content }) // TODO backend route
+    axios.post('http://localhost:4000/posts', { title, content }) // TODO backend route
       .then(() => {
         alert('Post created successfully!');
         setTitle('');
