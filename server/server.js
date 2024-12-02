@@ -1,23 +1,22 @@
+// Imports
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+//Create Express app
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 4000;
 
-// MongoDB Connection - add own connection set up mongoDB
-mongoose.connect('mongodb://localhost:27017/blogDB',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console,
-    'MongoDB connection error:'));
-db.once('open', () => {
-    console.log('Connected to MongoDB');
-});
+// Middleware
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// MongoDB Connection - Cluster1
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://Admin:Admin@cluster1.tczoy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1');
+
+
 
 app.use(cors());
 // Post Model
