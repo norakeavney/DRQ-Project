@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Post = require('./models/Post'); // Import the Post model
+const dotenv = require('dotenv'); // Import dotenv for environment variables
+const Post = require('./Models/posts'); // Import the Post model
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 
@@ -8,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://admin:admin@blogdb.tczoy.mongodb.net/?retryWrites=true&w=majority&appName=blogDB', {
+mongoose.connect(process.env.MONGO_URI, { // Use MONGO_URI from .env
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

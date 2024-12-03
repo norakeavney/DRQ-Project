@@ -19,3 +19,4 @@ const postSchema = new mongoose.Schema({
 
 //Create the Post model from the schema
 module.exports = mongoose.model('Post', postSchema);
+
