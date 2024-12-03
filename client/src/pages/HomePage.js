@@ -6,32 +6,39 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch posts from the backend API
-    axios.get('http://localhost:4000/posts') // Adjust this route to match your backend
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching posts:', error);
-      });
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/posts'); //Fetch posts from backend
+        setPosts(response.data); //Save posts to state
+      } catch (error) {
+        console.error('Error fetching posts:', error); //Log errors
+      }
+    };
+
+    fetchPosts(); //Fetching posts from BackEnd
   }, []);
 
+  //Displaying Blog Posts on the HomePage in Card including a snippet of the content
   return (
     <Container className="mt-5">
       <h1>Blog Posts</h1>
-      <Button href="/create"  variant="success" className="mb-3">Create New Post</Button>
+      <Button href="/create" variant="success" className="mb-3">Create New Post</Button>
       <Row>
-        {posts.map((post) => (
-          <Col key={post._id} md={4} className="mb-4">
-            <Card>
-              <Card.Body>
-                <Card.Title>{post.title}</Card.Title>
-                <Card.Text>{post.content.substring(0, 100)}...</Card.Text>
-                <Button href={`/posts/${post._id}`} variant="info">Read More</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <Col key={post._id} md={4} className="mb-4">
+              <Card>
+                <Card.Body>
+                  <Card.Title>{post.title}</Card.Title>
+                  <Card.Text>{post.content.substring(0, 100)}...</Card.Text>
+                  <Button href={`/posts/${post._id}`} variant="info">Read More</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <p>No posts found. Start by creating a new post!</p>
+        )}
       </Row>
     </Container>
   );
