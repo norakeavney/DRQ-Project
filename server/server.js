@@ -2,19 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv'); // Import dotenv for environment variables
 const Post = require('./Models/posts'); // Import the Post model
+const cors = require('cors'); // Import cors
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 
-// Middleware to parse JSON
-app.use(express.json());
+// Middleware
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Parse JSON requests
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { // Use MONGO_URI from .env
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 

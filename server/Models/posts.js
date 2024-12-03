@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-//Define the Post schema
+// Define the Post schema
 const postSchema = new mongoose.Schema({
   title: {
-    type: String, //Field type
-    required: true, //Validation: must be present
-    trim: true, //Removes leading/trailing spaces
+    type: String,
+    required: true,
   },
   content: {
     type: String,
@@ -13,10 +12,9 @@ const postSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now, //Auto-set to current date
+    default: Date.now,
   },
 });
 
-//Create the Post model from the schema
+// Export the model using CommonJS syntax
 module.exports = mongoose.model('Post', postSchema);
-
