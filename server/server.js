@@ -1,35 +1,44 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const cors = require('cors');
+const mongoose = require('mongoose');
+const Post = require('./models/Post'); // Import the Post model
 
 const app = express();
 
-// Middleware CORS
-app.use(express.json()); // Parse JSON requests
-app.use(cors()); // Enable cross-origin requests
+// Middleware to parse JSON
+app.use(express.json());
 
-// MongoDB Connection - Cluster1
-const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://admin:admin@blogdb.tczoy.mongodb.net/blogDB?retryWrites=true&w=majority')
-.then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('Error connecting to MongoDB:', err));
+// Connect to MongoDB
+mongoose.connect('mongodb+srv://admin:admin@blogdb.tczoy.mongodb.net/?retryWrites=true&w=majority&appName=blogDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
+// Routes
+// GET all posts
+app.get('/posts', async (req, res) => {
+  try {
+    const posts = await Post.find(); // Fetch all documents from "posts" collection
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-// Sample route
-app.get('/', (req, res) => {
-    res.send('Backend is working!');
-  });
+// POST a new post
+app.post('/posts', async (req, res) => {
+  try {
+    const newPost = new Post(req.body); // Create a new document using request data
+    const savedPost = await newPost.save(); // Save to MongoDB
+    res.status(201).json(savedPost);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 
-// /posts route
-app.get('/posts', (req, res) => {
-    res.json([
-      { _id: '1', title: 'Post 1', content: 'This is the first post.' },
-      { _id: '2', title: 'Post 2', content: 'This is the second post.' },
-    ]);
-  });
-  
-  // Start the server
-  const PORT = 4000;
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+// Start the server
+const PORT = 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
