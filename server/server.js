@@ -27,8 +27,24 @@ app.get('/posts', async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   });
+
+//Get Specific Post to display on Post Details
+  app.get('/posts/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const post = await Post.findById(id); //Find the post by ID
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+      res.status(200).json(post); //Respond with the post
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
   
 
+  //POST Route
   app.post('/posts', async (req, res) => {
     try {
       const newPost = new Post(req.body); //Create a new post using the request body
@@ -38,6 +54,23 @@ app.get('/posts', async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   });
+
+  
+
+  //Delete Route - ASYNC
+  app.delete('/posts/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedPost = await Post.findByIdAndDelete(id); //Mongoose deletes by ID
+      if (!deletedPost) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+      res.status(200).json({ message: 'Post deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
   
   
 
