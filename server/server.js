@@ -70,6 +70,25 @@ app.get('/posts', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+  //Update Route
+  app.put('/posts/:id', async (req, res) => {
+    try {
+      const { id } = req.params; //Get the post ID from the URL
+      const updatedPost = await Post.findByIdAndUpdate(
+        id, //Find post by ID
+        { ...req.body }, //Update fields with request body
+        { new: true, runValidators: true } //Return the updated document
+      );
+      if (!updatedPost) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+      res.status(200).json(updatedPost); //Respond with the updated post
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
   
   
   
