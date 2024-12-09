@@ -102,6 +102,7 @@ const PostDetails = () => {
           <h1>{post.title}</h1>
           <p>{post.content}</p>
           <Button variant="warning" onClick={handleEditToggle}>
+          <i class="bi bi-pencil-square me-2"></i>
             Edit Post
           </Button>
           <Button variant="danger" className="ms-3" onClick={handleDelete}>
