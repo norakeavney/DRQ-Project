@@ -18,16 +18,16 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
-// GET all posts
+//GET all posts sorted by newest
 app.get('/posts', async (req, res) => {
     try {
-      const posts = await Post.find(); //Fetch all posts from the database
-      res.status(200).json(posts); //Respond with the list of posts
+      const posts = await Post.find().sort({ createdAt: -1 }); //Sort by 'createdAt' newest showing first
+      res.status(200).json(posts);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
   });
-
+  
 //Get Specific Post to display on Post Details
   app.get('/posts/:id', async (req, res) => {
     try {
