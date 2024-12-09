@@ -21,7 +21,8 @@ const HomePage = () => {
 
   //Displaying Blog Posts on the HomePage in Cards with images
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 position-relative">
+        <br></br>
       <h1>Blog Posts</h1>
       <Row>
         {posts.length > 0 ? (
@@ -29,26 +30,45 @@ const HomePage = () => {
             <Col key={post._id} md={4} className="mb-4">
               <Card className="h-100 shadow-sm rounded">
                 <Card.Img
-                    variant="top"
-                    src={post.image || ''}
-                    alt={post.title}
-                    style={{ objectFit: 'cover', height: '200px' }}
+                  variant="top"
+                  src={post.image || ''}
+                  alt={post.title}
+                  style={{ objectFit: 'cover', height: '200px' }}
                 />
                 <Card.Body>
-                    <Card.Title>{post.title}</Card.Title>
-                    <Card.Text>{post.content.substring(0, 100)}...</Card.Text>
-                    <Button as={Link} to={`/posts/${post._id}`} variant="info">
+                  <Card.Title>{post.title}</Card.Title>
+                  <Card.Text>{post.content.substring(0, 100)}...</Card.Text>
+                  <Button as={Link} to={`/posts/${post._id}`} variant="success" >
                     Read More
-                    </Button>
+                  </Button>
                 </Card.Body>
-                </Card>
-
+              </Card>
             </Col>
           ))
         ) : (
           <p>No posts available. Create one to get started!</p>
         )}
       </Row>
+
+      <Link
+        to="/create"
+        className="btn btn-success rounded-circle shadow"
+        style={{
+            position: 'absolute', 
+            top: '70px', //Below Nav Bar
+            right: '30px', //Position at the right
+            width: '60px',
+            height: '60px', 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '24px',
+            zIndex: 1000, //Ensures it's above other elements
+        }}
+        >
+        +
+        </Link>
+
     </Container>
   );
 };

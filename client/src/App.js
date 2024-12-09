@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 import CreatePost from './pages/CreatePost';
 import PostDetails from './pages/PostDetails';
 import Footer from './Components/Footer';
-//import EditPost from './pages/EditPost';
+import './App.css';
 
 function App() {
   return (
