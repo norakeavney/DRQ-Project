@@ -15,12 +15,11 @@ const HomePage = () => {
         console.error('Error fetching posts:', error); //Log errors
       }
     };
- 
-    fetchPosts(); //Fetching posts from BackEnd
+
+    fetchPosts(); //Fetching posts from backend
   }, []);
 
-
-  //Displaying Blog Posts on the HomePage in Card including a snippet of the content
+  //Displaying Blog Posts on the HomePage in Cards with images
   return (
     <Container className="mt-5">
       <h1>Blog Posts</h1>
@@ -28,15 +27,22 @@ const HomePage = () => {
         {posts.length > 0 ? (
           posts.map((post) => (
             <Col key={post._id} md={4} className="mb-4">
-              <Card>
+              <Card className="h-100 shadow-sm rounded">
+                <Card.Img
+                    variant="top"
+                    src={post.image || ''}
+                    alt={post.title}
+                    style={{ objectFit: 'cover', height: '200px' }}
+                />
                 <Card.Body>
-                  <Card.Title>{post.title}</Card.Title>
-                  <Card.Text>{post.content.substring(0, 100)}...</Card.Text>
-                  <Button as={Link} to={`/posts/${post._id}`} variant="info">
+                    <Card.Title>{post.title}</Card.Title>
+                    <Card.Text>{post.content.substring(0, 100)}...</Card.Text>
+                    <Button as={Link} to={`/posts/${post._id}`} variant="info">
                     Read More
-                  </Button>
+                    </Button>
                 </Card.Body>
-              </Card>
+                </Card>
+
             </Col>
           ))
         ) : (
