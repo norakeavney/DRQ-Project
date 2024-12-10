@@ -108,6 +108,14 @@ The blogging platform offers several features to create, manage, and display pos
    - Includes social media links for Facebook, Instagram, GitHub, and X.
 
 ---
+## Acknowledgments
+This project was made possible with the help of the following resources:
+
+- **Blogging Platform Tutorial**: [GeeksforGeeks](https://www.geeksforgeeks.org/blogging-platform-using-mern-stack/)
+- **React Bootstrap Documentation**: [React Bootstrap](https://react-bootstrap.github.io/)
+- **CRUD Functionality**: [GeeksforGeeks](https://www.geeksforgeeks.org/how-to-build-a-basic-crud-app-with-node-js-and-reactjs/)
+- **Styling Inspiration**: [Bootstrap](https://getbootstrap.com/docs/3.4/css/)
+---
 
 ## Contact
 For questions or feedback, please reach out to:
